@@ -12,15 +12,11 @@ def get_resource(id):
         print('Something goes wrong.please check it')
 
 
-id = input('Enter Employee id ')
-get_resource(id)
-
 def get_all():
     resp = requests.get(BASE_URL+ENDPONT)
     print(resp.status_code)
     print(resp.json())
 
-get_all()
 
 def create_resource():
     new_emp = {
@@ -33,11 +29,10 @@ def create_resource():
     print(resp.status_code)
     print(resp.json())
 
-create_resource()
 
 def update_resource(id):
     emp_data = {
-        'esal':750,
+        'esal':7500,
         'eaddr':'delhi',
     }
     resp = requests.put(BASE_URL+ENDPONT+str(id) + '/', data=json.dumps(emp_data))
@@ -45,16 +40,26 @@ def update_resource(id):
     print(resp.json())
 
 
-id = input('Enter id and information')
-update_resource(id)
-
-
 def delete_resource(id):
     resp = requests.delete(BASE_URL + ENDPONT + str(id) + '/')
     print(resp.status_code)
     print(resp.json())
 
-create_resource()
-update_resource('4')
-delete_resource('3')
-get_all()
+
+print('1. Get the Employee detail type 1\n2. Get all Employees detail type 2\n3. Update Employee type 3'
+      '\n4. Delete Employee type 4 ')
+
+choose = int(input('Please choose the action '))
+if choose == 1:
+    id = input('Please Enter the Employee Id ')
+    get_resource(id)
+elif choose ==2:
+    get_all()
+elif choose == 3:
+    id = input('Enter Employee id ')
+    update_resource(id)
+elif choose == 4:
+    id = input('Enter Employee id ')
+    delete_resource(id)
+else:
+    print('You have choose invalid option ')
